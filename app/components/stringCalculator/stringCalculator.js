@@ -11,7 +11,7 @@ function stringCalculator() {
                 return 0;
             }
 
-            var integerValues = numbers.split(',').map(function (value) {
+            var integerValues = numbers.split(/[,\n]/).map(function (value) {
 				return parseInt(value);
             });
 

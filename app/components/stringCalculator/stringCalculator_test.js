@@ -27,6 +27,13 @@ describe('myApp.stringCalculator module', function() {
             it('#add should return sums of an arbitary number of integers', function() {
                 expect(stringCalculator.add('1,2,3,4')).toBe(10);
             });
-        })
+        });
+
+        describe('Allow new line as separator', function() {
+            it('#add should with both new lines and commas as separator', function() {
+                expect(stringCalculator.add('1\n2')).toBe(3);
+                expect(stringCalculator.add('1,2\n3,4')).toBe(10);
+            });
+        });
     });
 });
