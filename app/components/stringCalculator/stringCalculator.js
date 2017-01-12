@@ -7,7 +7,21 @@ angular.module('myApp.stringCalculator', [])
 function stringCalculator() {
 	return {
 		add: function(numbers) {
-			return 0;
+            if (!numbers || numbers === '') {
+                return 0;
+            }
+
+            var integerValues = numbers.split(',').map(function (value) {
+				return parseInt(value);
+            });
+
+            if (integerValues.length < 2) {
+            	return integerValues[0];
+			}
+
+			return integerValues.reduce(function (a, b) {
+				return a + b;
+            });
 		}
 	};
 }
