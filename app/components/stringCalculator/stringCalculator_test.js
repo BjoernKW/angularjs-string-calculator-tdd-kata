@@ -29,10 +29,26 @@ describe('myApp.stringCalculator module', function() {
             });
         });
 
-        describe('Allow new line as separator', function() {
-            it('#add should with both new lines and commas as separator', function() {
+        describe('Variable separators', function() {
+            it('#add should work with both new lines and commas as separator', function() {
                 expect(stringCalculator.add('1\n2')).toBe(3);
                 expect(stringCalculator.add('1,2\n3,4')).toBe(10);
+            });
+
+            it('#add should user-defined separators', function() {
+                expect(stringCalculator.add('//;\n1;2')).toBe(3);
+            });
+        });
+
+        describe('Handle invalid input', function() {
+            it('#add should throw an exception on negative integers', function() {
+                // http://stackoverflow.com/questions/21221697/using-tothrowerror-in-jasmine
+                expect(function() { stringCalculator.add('1\n-2') }).toThrowError('No negative values are allowed: -2');
+                expect(function() { stringCalculator.add('1,-2\n3,-4') }).toThrowError('No negative values are allowed: -2, -4');
+            });
+
+            it('#add should ignore values greater than 1000', function() {
+                expect(stringCalculator.add('1,1000,3,4,1001')).toBe(1008);
             });
         });
     });
