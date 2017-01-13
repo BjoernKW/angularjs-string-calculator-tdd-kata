@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('myApp.stringCalculator', [])
+angular.module('myApp.stringCalculator', [
+    'myApp.stringCalculator.directive'
+])
 
-.factory('stringCalculator', stringCalculator);
-
-function stringCalculator() {
+.factory('stringCalculator', function () {
     function escapeRegExp(regExpString) {
         regExpString = regExpString.replace(/[\-\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
         return regExpString.replace('][', '|').replace(/\[|\]/g, '');
@@ -37,8 +37,8 @@ function stringCalculator() {
         return integerValues;
     }
 
-	return {
-		add: function(input) {
+    return {
+        add: function(input) {
             if (!input || input === '') {
                 return 0;
             }
@@ -46,12 +46,12 @@ function stringCalculator() {
             var integerValues = extractIntegerValues(input);
 
             if (integerValues.length < 2) {
-            	return integerValues[0];
-			}
+                return integerValues[0];
+            }
 
-			return integerValues.reduce(function (a, b) {
-				return a + b;
+            return integerValues.reduce(function (a, b) {
+                return a + b;
             });
-		}
-	};
-}
+        }
+    };
+});
